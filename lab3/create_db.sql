@@ -49,7 +49,7 @@ CREATE TABLE `plane` (
   `model_id` INT NOT NULL,
   `airline_id` INT NOT NULL,
   `kilometrage` INT NULL,
-  `aircraft_registration` VARCHAR(7) NULL
+  `aircraft_registration` VARCHAR(7) NOT NULL
 )ENGINE = InnoDB;
 
 ALTER TABLE `plane`
@@ -126,19 +126,24 @@ ENGINE = InnoDB;
 CREATE TABLE `location` (
   `id` 							INT 		NOT NULL AUTO_INCREMENT,
   `speed` 						DOUBLE 		NULL,
-  `latitude` 					DOUBLE 		NULL,
-  `longitude` 					DOUBLE 		NULL,
+  `latitude` 					DOUBLE 		NULL UNIQUE,
+  `longitude` 					DOUBLE 		NULL UNIQUE,
   `governmental_territories` 	VARCHAR(45) NULL,
   `nongovernmental_territories` VARCHAR(45) NULL,
+  `plane_id` 					INT 		NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   INDEX `fk_location_country1_idx` (`governmental_territories`),
   INDEX `fk_location_nongovernmental_territories1_idx` (`nongovernmental_territories`),
+  INDEX `fk_location_plane1_idx` (`plane_id`),
   CONSTRAINT `fk_location_country1`
     FOREIGN KEY (`governmental_territories`)
     REFERENCES `country` (`name`),
   CONSTRAINT `fk_location_nongovernmental_territories1`
     FOREIGN KEY (`nongovernmental_territories`)
-    REFERENCES `nongovernmental_territories` (`name`)
+    REFERENCES `nongovernmental_territories` (`name`),
+  CONSTRAINT `fk_location_plane1`
+    FOREIGN KEY (`plane_id`)
+    REFERENCES `plane` (`id`)
 )ENGINE = InnoDB;
 
 CREATE TABLE `plane_flight_history` (

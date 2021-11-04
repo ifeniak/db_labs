@@ -31,11 +31,11 @@ VALUES
 ('Staircase', NULL, 400, 5000, 'civil', NULL),
 ('Coil', 455, NULL, 5000, NULL, NULL),
 ('Current', 987, 456, 1000, 'civil', 'black'),
-('model6', 987, 456, 2000, 'civil', 'black'),
-('model7', 987, 456, 3000, 'civil', 'black'),
-('model8', 987, 456, NULL, 'civil', 'black'),
-('model9', 987, 456, NULL, 'civil', 'black'),
-('model10', 987, 456, 1233, 'civil', 'black');
+('Tripple Sun', 987, 456, 2000, 'civil', 'black'),
+('Ostia', 987, 456, 3000, 'civil', 'black'),
+('Firemind', 987, 456, NULL, 'civil', 'black'),
+('Azrael', 987, 456, NULL, 'bomber', 'black'),
+('Death', 987, 456, 1233, 'fighter', 'black');
 
 INSERT INTO`country` (`name`, `gdp`, `size`, `population`)
 VALUES
@@ -44,10 +44,118 @@ VALUES
 ('Nauru', 23004, 213, 21034),
 ('Korea', 32423, NULL, 6565767),
 ('Canada', NULL, 38409, NULL),
-('France', 2425, NULL, 342342),
+('China', 2425, NULL, 342342),
 ('Germany', 3424, 3423, 565645),
 ('Japan', 3943290, 35435, 4535353),
 ('Ethiopia', 423478, 32432, NULL),
-('Palestina', 34324, 231432221, 2313231231);
+('Palestine', 34324, 231432221, 2313231231),
+('Russia', 743932, 321313, 3232323345),
+('France', 23423, 3424, NULL);
 
--- INSERT INTO `airline` (`id`, `name`, `capitalization`, `country_name`)
+
+INSERT INTO `airline` (`name`, `capitalization`, `country_name`)
+VALUES
+('Tibetian airlines', 123546, 'China'),
+('Nauru airlienes', 23243, 'Nauru'),
+('Galizien airlines', 5465321, 'Ukraine'),
+('Tottenkopf airlines', 213123, 'Germany'),
+('Drevlian airlines', 2342384, 'Ukraine'),
+('Tmutarakan airlines', 342234, 'Ukraine'),
+('Rossenval airlines', NULL, 'France'),
+('Black September', NULL, 'Palestine'),
+('Norsk', 612665, 'Norway'),
+('Nihilian', 34234, 'Germany');
+
+INSERT INTO `plane` (`name`, `model_id`, `airline_id`, `kilometrage`, `aircraft_registration`)
+VALUES
+('Himmler', 1, 3, 43242, '0004563'),
+('Hering', 4, 5, 32145, '94995'),
+('Borman', 2, 4,656543, '5435514'),
+('Ribbentrop', 4, 6, 3434, '3456000'),
+('Rommel', 6, 8, NULL, '034244'),
+('Rem', 4, 9, 5435, '5405904'),
+('Eicke', 5, 3, 534567, '00005'),
+('Ahnenerbe', 7, 7, NULL, '434345'),
+('Muller', 5, 9, 445646, '1110110'),
+('Shellenberg', 1, 1, 34424, '11111');
+ 
+INSERT INTO `city` (`name`, `population`, `status`, `country_name`)
+VALUES
+('Kolomyia', 60666, 'non-capital', 'Ukraine'),
+('Addis', 453245, 'capital', 'Ethiopia'),
+('Marsel', 342345, 'capital', 'France'),
+('Paris', 23423354, 'non-capital', 'France'),
+('Lviv', 435543, 'non-capital', 'Ukraine'),
+('Novgorod', 324324, 'non-capital', 'Russia'),
+('Wewelsburg', 4325435, 'non-capital', 'Germany'),
+('Daegu', NULL, 'non-capital', 'Korea'),
+('Trondheim', NULL, NULL, 'Norway'),
+('Jerusalem', 43543443, NULL, 'Palestine');
+
+INSERT INTO `airport` (`name`, `quality`, `planes_capacity`, `city_name`)
+VALUES
+('Istr', 'perfect', 30940, 'Kolomyia'),
+('De Golle', 'good', NULL, 'Paris'),
+('Varg', NULL, 2345, 'Daegu'),
+('Abbath', 'nice', 45345, 'Kolomyia'),
+('Evronimus', 'bad', NULL, 'Jerusalem'),
+('Hellhammer', 'good', NULL, 'Lviv'),
+('Famine', NULL, NULL, 'Marsel'),
+('Nergal', NULL, 324345, 'Wewelsburg'),
+('Annenerbe', NULL, NULL, 'Lviv'),
+('Morok', 'nice', 24554, 'Novgorod');
+
+INSERT INTO `flight` (`name`, `airport_departure`, `airport_arrival`)
+VALUES
+('first', 'De Golle', 'Abbath'),
+('second', 'Hellhammer', 'Annenerbe'),
+('third', 'Nergal', 'Morok'),
+('forth', 'Evronimus', 'Nergal'),
+('fifth', 'De Golle', 'Istr'),
+('sixth', 'Istr', 'Evronimus'),
+('seventh', 'De Golle', 'Annenerbe'),
+('eight', 'Morok', 'Hellhammer'),
+('ninth', 'Nergal', 'Annenerbe'),
+('tenth', 'Istr', 'Varg');
+
+INSERT INTO `route` (`name`, `length`, `duration`, `danger_level`, `is_direct`, `flight_id`)
+VALUES
+('first_a', 34235, 45.56, 7, TRUE, 1),
+('second_a', 456789, 45345.6, 2, TRUE, 2),
+('third_a', 7866, NULL, 4, TRUE, 3),
+('fifth_a', 78561, NULL, 9, TRUE, 4),
+('sixth_a', 761003, 4572.3, NULL, TRUE, 5),
+('seventh_a', 749, 7891.1, 2, TRUE, 6),
+('eightth_a', NULL, 45.6, NULL, TRUE, 7),
+('ninth_a', 4572, NULL, 1, TRUE, 8),
+('tenth_a', 7891, 1510.4, 8, TRUE, 9),
+('fifth_b', 100561, NULL, 2, FALSE, 5),
+('tenth_b', 78914, 15104.4, 1, FALSE, 10);
+
+INSERT INTO `nongovernmental_territories` (`name`, `type`, `danger_level`)
+VALUES
+('Azatoth', NULL, 100),
+('Cadath', 'place', 95),
+('Insmaut', 'city', 70),
+('Black Sea', 'sea', 5),
+('Red Sea', 'sea', NULL),
+('White Sea', 'sea', 8),
+('Dead Sea', 'lake', 2),
+('Sargasian Sea', 'sea', 9),
+('Athlantics', 'ocean', NULL),
+('Arctic', NULL, NULL);
+
+INSERT INTO `location` (`speed`, `latitude`, `longitude`, `governmental_territories`, `nongovernmental_territories`, `plane_id`)
+VALUES
+(1235.4, 1244.4, 12.235, 'Russia', 'Azatoth', 3),
+(12354.2135, 1234.125, 1213.235, NULL, 'Arctic', 4),
+(1234.235, 123.235, 134.2, NULL, 'Athlantics', 1),
+(132.1235, 12.1235, 12.33, NULL, NULL, 2),
+(132.556, 123.1245, NULL, NULL, 'Cadath', 5),
+(456.0125, 234.5, 24.5, 'Canada', 'Insmaut', 6),
+(123.2365, 12.236, 123.4, NULL, 'Sargasian Sea', 7),
+(2445.6, 121.34, 60.2435, 'Russia', 'White Sea', 8),
+(32434, 355.56, 24, 'Palestine', 'Dead Sea', 9),
+(2434.345, 455.67, 883.4, 'Russia', 'Azatoth', 10);
+
+
