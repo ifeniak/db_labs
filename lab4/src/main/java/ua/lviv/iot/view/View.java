@@ -19,6 +19,11 @@ public class View {
     private final Controller<Airline> airlineController = new AirlineController();
     private final Controller<Plane> planeController = new PlaneController();
     private final Controller<City> cityController = new CityController();
+    private final Controller<Airport> airportController = new AirportController();
+    private final Controller<Flight> flightController = new FlightController();
+    private final Controller<Route> routeController = new RouteController();
+    private final Controller<Nongovernmental_territories> nongovernmental_territoriesController =
+            new Nongovernmental_territoriesController();
 
     public View() {
         menu.put("11", this::getAllModels);
@@ -50,14 +55,38 @@ public class View {
         menu.put("53", this::createCity);
         menu.put("54", this::updateCity);
         menu.put("55", this::deleteCity);
+
+        menu.put("61", this::getAllAirports);
+        menu.put("62", this::getAirportById);
+        menu.put("63", this::createAirport);
+        menu.put("64", this::updateAirport);
+        menu.put("65", this::deleteAirport);
+
+        menu.put("71", this::getAllFlights);
+        menu.put("72", this::getFlightById);
+        menu.put("73", this::createFlight);
+        menu.put("74", this::updateFlight);
+        menu.put("75", this::deleteFlight);
+
+        menu.put("81", this::getAllRoutes);
+        menu.put("82", this::getRouteById);
+        menu.put("83", this::createRoute);
+        menu.put("84", this::updateRoute);
+        menu.put("85", this::deleteRoute);
+
+        menu.put("91", this::getAllNongovernmental_territories);
+        menu.put("92", this::getNongovernmental_territoriesById);
+        menu.put("93", this::createNongovernmental_territories);
+        menu.put("94", this::updateNongovernmental_territories);
+        menu.put("95", this::deleteNongovernmental_territories);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     private void getAllModels() throws SQLException {
-        System.out.println("");
+        System.out.println();
         modelController.findAll().forEach(System.out::println);
-        System.out.println("");
+        System.out.println();
     }
 
     private void getModelById() throws SQLException {
@@ -160,38 +189,38 @@ public class View {
     // -----------------------------------------------------------------------------------------------------------------
 
     private void getAllAirlines() throws SQLException {
-        System.out.println("");
+        System.out.println();
         airlineController.findAll().forEach(System.out::println);
-        System.out.println("");
+        System.out.println();
     }
 
     private void getAirlineById() throws SQLException {
-        System.out.println("");
+        System.out.println();
         Integer id = readId("Type id: ");
         System.out.println("\n" + airlineController.findById(id));
-        System.out.println("");
+        System.out.println();
     }
 
     private void createAirline() throws SQLException {
-        System.out.println("");
+        System.out.println();
         airlineController.create(getAirlineFromInput());
-        System.out.println("");
+        System.out.println();
     }
 
     private void updateAirline() throws SQLException {
-        System.out.println("");
+        System.out.println();
         Integer id = readId("Type id: ");
         Airline airline = getAirlineFromInput();
         airline.setId(id);
         airlineController.update(airline);
-        System.out.println("");
+        System.out.println();
     }
 
     private void deleteAirline() throws SQLException {
-        System.out.println("");
+        System.out.println();
         Integer id = readId("Type id: ");
         airlineController.delete(id);
-        System.out.println("");
+        System.out.println();
     }
 
     private Airline getAirlineFromInput() {
@@ -307,6 +336,210 @@ public class View {
 
         return new City(population, status, country_name);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public void getAllAirports() throws SQLException {
+        System.out.println();
+        airportController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    public void getAirportById() throws SQLException {
+        System.out.println();
+        String name = readName("Type name:");
+        System.out.println("\n" + airportController.findById(name));
+        System.out.println();
+    }
+
+    public void createAirport() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        Airport airport = getAirportFromInput();
+        airport.setName(name);
+        airportController.create(airport);
+        System.out.println();
+    }
+
+    private void updateAirport() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        Airport airport = getAirportFromInput();
+        airport.setName(name);
+        airportController.update(airport);
+        System.out.println();
+    }
+
+    private void deleteAirport() throws SQLException {
+        System.out.println("");
+        String name = readName("Type name: ");
+        airportController.delete(name);
+        System.out.println("");
+    }
+
+    private Airport getAirportFromInput() {
+        System.out.println("Type quality: ");
+        String quality = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type planes_capacity: ");
+        Integer planes_capacity = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type city_name: ");
+        String city_name = scanner.nextLine().replaceAll(" ", "");
+
+        return new Airport(quality, planes_capacity, city_name);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private void getAllFlights() throws SQLException {
+        System.out.println();
+        flightController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    private void getFlightById() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        System.out.println("\n" + flightController.findById(id));
+        System.out.println();
+    }
+
+    private void createFlight() throws SQLException {
+        System.out.println();
+        flightController.create(getFlightFromInput());
+        System.out.println();
+    }
+
+    private void updateFlight() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        Flight flight = getFlightFromInput();
+        flight.setId(id);
+        flightController.update(flight);
+        System.out.println();
+    }
+
+    private void deleteFlight() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        flightController.delete(id);
+        System.out.println();
+    }
+
+    public Flight getFlightFromInput() {
+        System.out.println("Type name:");
+        String name = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type airport_departure: ");
+        String airport_departure = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type airport_arrival: ");
+        String airport_arrival = scanner.nextLine().replaceAll(" ", "");
+
+        return new Flight(name, airport_departure, airport_arrival);
+
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private void getAllRoutes() throws SQLException {
+        System.out.println();
+        routeController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    private void getRouteById() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        System.out.println("\n" + routeController.findById(id));
+        System.out.println();
+    }
+
+    private void createRoute() throws SQLException {
+        System.out.println();
+        routeController.create(getRouteFromInput());
+        System.out.println();
+    }
+
+    private void updateRoute() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        Route route = getRouteFromInput();
+        route.setId(id);
+        routeController.update(route);
+        System.out.println();
+    }
+
+    private void deleteRoute() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        routeController.delete(id);
+        System.out.println();
+    }
+
+    private Route getRouteFromInput() {
+        System.out.println("Type name:");
+        String name = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type length: ");
+        Integer length = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type duration: ");
+        Double duration = Double.parseDouble(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type danger_level: ");
+        Integer danger_level = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type is_direct: ");
+        Boolean is_direct = Boolean.parseBoolean(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type flight_id: ");
+        Integer flight_id = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+
+        return new Route(name, length, duration, danger_level, is_direct, flight_id);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public void getAllNongovernmental_territories() throws SQLException {
+        System.out.println();
+        nongovernmental_territoriesController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    public void getNongovernmental_territoriesById() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        System.out.println("\n" + nongovernmental_territoriesController.findById(name));
+        System.out.println();
+    }
+
+    public void createNongovernmental_territories() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        Nongovernmental_territories nongovernmental_territories = getNongovernmental_territoriesFromInput();
+        nongovernmental_territories.setName(name);
+        nongovernmental_territoriesController.create(nongovernmental_territories);
+        System.out.println();
+    }
+
+    public void updateNongovernmental_territories() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        Nongovernmental_territories nongovernmental_territories = getNongovernmental_territoriesFromInput();
+        nongovernmental_territories.setName(name);
+        nongovernmental_territoriesController.update(nongovernmental_territories);
+        System.out.println();
+    }
+
+    public void deleteNongovernmental_territories() throws SQLException {
+        System.out.println();
+        String name = readName("Type name: ");
+        nongovernmental_territoriesController.delete(name);
+        System.out.println();
+    }
+
+    private Nongovernmental_territories getNongovernmental_territoriesFromInput() {
+        System.out.println("Type type: ");
+        String status = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type danger_level: ");
+        String danger_level = scanner.nextLine().replaceAll(" ", "");
+
+        return new Nongovernmental_territories(status, danger_level);
+    }
+
 
     // -----------------------------------------------------------------------------------------------------------------
 

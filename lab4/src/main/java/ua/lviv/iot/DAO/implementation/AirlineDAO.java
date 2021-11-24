@@ -71,7 +71,7 @@ public class AirlineDAO implements DAO<Airline> {
     }
 
     @Override
-    public void update(Airline airline) throws  SQLException {
+    public void update(Airline airline) throws SQLException {
         try(PreparedStatement st = ConnectionManager.getConnection().prepareStatement(UPDATE)) {
             st.setString(1, airline.getName());
             st.setDouble(2, airline.getCapitalization());
