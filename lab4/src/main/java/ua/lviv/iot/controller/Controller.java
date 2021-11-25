@@ -11,7 +11,7 @@ public interface Controller<E> {
         return null;
     }
 
-    default E findById(Integer firstId, Integer secondId) {
+    default E findById(Integer firstId, Integer secondId) throws SQLException {
         return null;
     }
 

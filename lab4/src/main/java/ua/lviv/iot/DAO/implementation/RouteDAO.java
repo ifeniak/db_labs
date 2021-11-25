@@ -37,6 +37,8 @@ public class RouteDAO implements DAO<Route> {
                         rs.getInt("flight_id"));
                 routes.add(route);
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return routes;
     }

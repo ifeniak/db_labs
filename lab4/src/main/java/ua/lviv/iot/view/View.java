@@ -24,6 +24,9 @@ public class View {
     private final Controller<Route> routeController = new RouteController();
     private final Controller<Nongovernmental_territories> nongovernmental_territoriesController =
             new Nongovernmental_territoriesController();
+    private final Controller<Location> locationController = new LocationController();
+    private final Controller<Plane_flight_history> plane_flight_historyController = new Plane_flight_historyController()
+            ;
 
     public View() {
         menu.put("11", this::getAllModels);
@@ -79,6 +82,18 @@ public class View {
         menu.put("93", this::createNongovernmental_territories);
         menu.put("94", this::updateNongovernmental_territories);
         menu.put("95", this::deleteNongovernmental_territories);
+
+        menu.put("101", this::getAllLocations);
+        menu.put("102", this::getLocationById);
+        menu.put("103", this::createLocation);
+        menu.put("104", this::updateLocation);
+        menu.put("105", this::deleteLocation);
+
+        menu.put("111", this::getAllPlane_flight_histories);
+        menu.put("112", this::getPlane_flight_historyById);
+        menu.put("113", this::createPlane_flight_history);
+        menu.put("114", this::updatePlane_flight_history);
+        menu.put("115", this::deletePlane_flight_history);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -118,7 +133,7 @@ public class View {
         System.out.println("");
     }
 
-    private Model getModelFromInput() throws SQLException {
+    private Model getModelFromInput() {
         System.out.println("Type name: ");
         String name = scanner.nextLine().replaceAll(" ", "");
         System.out.println("Type height: ");
@@ -540,6 +555,101 @@ public class View {
         return new Nongovernmental_territories(status, danger_level);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private void getAllLocations() throws SQLException {
+        System.out.println();
+        locationController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    private void getLocationById() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        System.out.println("\n" + locationController.findById(id));
+        System.out.println();
+    }
+
+    private void createLocation() throws SQLException {
+        System.out.println();
+        locationController.create(getLocationFromInput());
+        System.out.println();
+    }
+
+    private void updateLocation() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        Location location = getLocationFromInput();
+        location.setId(id);
+        locationController.update(location);
+        System.out.println();
+    }
+
+    private void deleteLocation() throws SQLException {
+        System.out.println();
+        Integer id = readId("Type id: ");
+        locationController.delete(id);
+        System.out.println();
+    }
+
+    private Location getLocationFromInput() {
+        System.out.println("Type speed: ");
+        Double speed = Double.parseDouble(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type latitude: ");
+        Double latitude = Double.parseDouble(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type longitude: ");
+        Double longitude = Double.parseDouble(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type governmental_territories: ");
+        String governmental_territories = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type nongovernmental_territories");
+        String nongovernmental_territories = scanner.nextLine().replaceAll(" ", "");
+        System.out.println("Type plane_id: ");
+        Integer plane_id = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+
+        return new Location(speed, latitude, longitude, governmental_territories, nongovernmental_territories, plane_id);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private void getAllPlane_flight_histories() throws SQLException {
+        System.out.println();
+        plane_flight_historyController.findAll().forEach(System.out::println);
+        System.out.println();
+    }
+
+    private void getPlane_flight_historyById() throws SQLException {
+        System.out.println();
+        Integer firstId = readId("Type first_id: ");
+        Integer secondId = readId("Type second_id: ");
+        System.out.println("\n" + plane_flight_historyController.findById(firstId, secondId));
+        System.out.println();
+    }
+
+    private void createPlane_flight_history() throws SQLException {
+        System.out.println();
+        plane_flight_historyController.create(getPlane_flight_historyFromInput());
+        System.out.println();
+    }
+
+    private void updatePlane_flight_history() {
+        System.out.println("You can't update value in this table");
+    }
+
+    private void deletePlane_flight_history() throws SQLException {
+        System.out.println();
+        Integer firstId = readId("Type first_id: ");
+        Integer secondId = readId("Type second_id: ");
+        plane_flight_historyController.delete(firstId, secondId);
+        System.out.println();
+    }
+
+    private Plane_flight_history getPlane_flight_historyFromInput() {
+        System.out.println("Type first_id: ");
+        Integer firstId = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+        System.out.println("Type second_id: ");
+        Integer secondId = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
+        return new Plane_flight_history(firstId, secondId);
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 

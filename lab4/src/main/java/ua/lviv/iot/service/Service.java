@@ -25,7 +25,7 @@ public interface Service<E> {
 
     default void delete(Integer id) throws SQLException {}
 
-    default void delete(Integer firstId, Integer secondId) {}
+    default void delete(Integer firstId, Integer secondId) throws SQLException {}
 
     default void delete(String name) throws SQLException{}
 }
