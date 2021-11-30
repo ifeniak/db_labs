@@ -17,8 +17,8 @@ public class RouteService implements Service<Route> {
     }
 
     @Override
-    public Route findById(Integer id) throws SQLException {
-        return dao.findById(id);
+    public Route findById(Integer id, Integer flightId) throws SQLException {
+        return dao.findById(id, flightId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RouteService implements Service<Route> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
-        dao.delete(id);
+    public void delete(Integer id, Integer flightId) throws SQLException {
+        dao.delete(id, flightId);
     }
 }

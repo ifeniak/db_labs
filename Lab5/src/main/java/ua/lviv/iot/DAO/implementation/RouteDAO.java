@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import ua.lviv.iot.DAO.DAO;
 import ua.lviv.iot.HibernateUtil;
 import ua.lviv.iot.model.Route;
+import ua.lviv.iot.model.RoutePK;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,48 +17,37 @@ public class RouteDAO implements DAO<Route> {
 
     @Override
     public List<Route> findAll() throws SQLException {
-        List<Route> Routes = new ArrayList<>();
+        List<Route> routes = new ArrayList<>();
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Routes = session.createQuery("from Route ").getResultList();
+            routes = session.createQuery("from Route ").getResultList();
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Routes;
+        return routes;
     }
 
     @Override
-    public Route findById(Integer id) throws SQLException {
-        Route Route = null;
+    public Route findById(Integer id, Integer flightId) throws SQLException {
+        Route route = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Route = session.get(Route.class, id);
+            route = session.get(Route.class, new RoutePK(id, flightId));
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Route;
+        return route;
     }
 
     @Override
-    public void create(Route Route) throws SQLException {
+    public void create(Route route) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            session.save(Route);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void update(Route Route) throws SQLException {
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.update(Route);
+            session.save(route);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,12 +55,23 @@ public class RouteDAO implements DAO<Route> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void update(Route route) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Route Route = session.get(Route.class, id);
-            if (Route != null) {
-                session.delete(Route);
+            session.update(route);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(Integer id, Integer flightId) throws SQLException {
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            Route route = session.get(Route.class, new RoutePK(id, flightId));
+            if (route != null) {
+                session.delete(route);
             }
             session.getTransaction().commit();
         } catch (Exception e) {

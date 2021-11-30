@@ -10,11 +10,9 @@ import java.util.Objects;
 public class PlaneFlightHistoryPK implements Serializable {
     @Column(name = "plane_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer planeId;
     @Column(name = "flight_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer flightId;
 
     public Integer getPlaneId() {

@@ -14,8 +14,15 @@ public class RoutePK implements Serializable {
     private Integer id;
     @Column(name = "flight_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer flightId;
+
+    public RoutePK(Integer id, Integer flightId) {
+        this.id = id;
+        this.flightId = flightId;
+    }
+
+    public RoutePK() {
+    }
 
     public Integer getId() {
         return id;

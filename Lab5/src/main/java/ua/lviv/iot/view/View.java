@@ -464,21 +464,28 @@ public class View {
     private void getRouteById() throws SQLException {
         System.out.println();
         Integer id = readId("Type id: ");
-        System.out.println("\n" + routeController.findById(id));
+        Integer flightId = readId("Type flight_id: ");
+        System.out.println("\n" + routeController.findById(id, flightId));
         System.out.println();
     }
 
     private void createRoute() throws SQLException {
         System.out.println();
-        routeController.create(getRouteFromInput());
+        Route route = getRouteFromInput();
+        Integer flightId = readId("Type flight_id: ");
+        route.setFlightId(flightId);
+        routeController.create(route);
+
         System.out.println();
     }
 
     private void updateRoute() throws SQLException {
         System.out.println();
         Integer id = readId("Type id: ");
+        Integer flightId = readId("Type flight_id: ");
         Route route = getRouteFromInput();
         route.setId(id);
+        route.setFlightId(flightId);
         routeController.update(route);
         System.out.println();
     }
@@ -486,7 +493,8 @@ public class View {
     private void deleteRoute() throws SQLException {
         System.out.println();
         Integer id = readId("Type id: ");
-        routeController.delete(id);
+        Integer flightId = readId("Type flight_id: ");
+        routeController.delete(id, flightId);
         System.out.println();
     }
 
@@ -501,10 +509,8 @@ public class View {
         Integer danger_level = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
         System.out.println("Type is_direct: ");
         Byte is_direct = Byte.parseByte(scanner.nextLine().replaceAll(" ", ""));
-        System.out.println("Type flight_id: ");
-        Integer flight_id = Integer.parseInt(scanner.nextLine().replaceAll(" ", ""));
 
-        return new Route(name, length, duration, danger_level, is_direct, flight_id);
+        return new Route(name, length, duration, danger_level, is_direct);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

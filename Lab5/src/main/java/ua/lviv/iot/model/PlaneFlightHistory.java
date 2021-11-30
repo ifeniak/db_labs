@@ -23,11 +23,10 @@ public class PlaneFlightHistory {
         this.flightId = flightId;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "plane_id")
     private Integer planeId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "flight_id")
     private Integer flightId;

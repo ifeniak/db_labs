@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "route")
+@Table(name = "route", schema = "planes")
 @IdClass(RoutePK.class)
 public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,13 +18,12 @@ public class Route {
     public Route() {
     }
 
-    public Route(String name, Integer length, Double duration, Integer dangerLevel, Byte isDirect, Integer flightId) {
+    public Route(String name, Integer length, Double duration, Integer dangerLevel, Byte isDirect) {
         this.name = name;
         this.length = length;
         this.duration = duration;
         this.dangerLevel = dangerLevel;
         this.isDirect = isDirect;
-        this.flightId = flightId;
     }
 
     @Basic

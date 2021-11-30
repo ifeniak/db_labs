@@ -17,8 +17,8 @@ public class RouteController implements Controller<Route> {
     }
 
     @Override
-    public Route findById(Integer id) throws SQLException {
-        return service.findById(id);
+    public Route findById(Integer id, Integer flightId) throws SQLException {
+        return service.findById(id, flightId);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RouteController implements Controller<Route> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
-        service.delete(id);
+    public void delete(Integer id, Integer flightId) throws SQLException {
+        service.delete(id, flightId);
     }
 }
