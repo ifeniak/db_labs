@@ -72,6 +72,7 @@ public class RouteDAO implements DAO<Route> {
             if (Route != null) {
                 session.delete(Route);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

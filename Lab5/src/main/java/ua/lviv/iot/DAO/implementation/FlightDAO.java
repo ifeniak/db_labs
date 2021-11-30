@@ -72,6 +72,7 @@ public class FlightDAO implements DAO<Flight> {
             if (flight != null) {
                 session.delete(flight);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

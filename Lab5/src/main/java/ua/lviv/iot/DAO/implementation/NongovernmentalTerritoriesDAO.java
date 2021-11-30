@@ -29,12 +29,12 @@ public class NongovernmentalTerritoriesDAO implements DAO<NongovernmentalTerrito
     }
 
     @Override
-    public NongovernmentalTerritories findById(Integer id) throws SQLException {
+    public NongovernmentalTerritories findById(String name) throws SQLException {
         NongovernmentalTerritories nongovernmentalTerritories = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            nongovernmentalTerritories = session.get(NongovernmentalTerritories.class, id);
+            nongovernmentalTerritories = session.get(NongovernmentalTerritories.class, name);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,13 +65,14 @@ public class NongovernmentalTerritoriesDAO implements DAO<NongovernmentalTerrito
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(String name) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            NongovernmentalTerritories nongovernmentalTerritories = session.get(NongovernmentalTerritories.class, id);
+            NongovernmentalTerritories nongovernmentalTerritories = session.get(NongovernmentalTerritories.class, name);
             if (nongovernmentalTerritories != null) {
                 session.delete(nongovernmentalTerritories);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -33,6 +33,14 @@ public class PlaneFlightHistoryPK implements Serializable {
         this.flightId = flightId;
     }
 
+    public PlaneFlightHistoryPK(Integer planeId, Integer flightId) {
+        this.planeId = planeId;
+        this.flightId = flightId;
+    }
+
+    public PlaneFlightHistoryPK() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

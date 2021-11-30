@@ -72,6 +72,7 @@ public class PlaneDAO implements DAO<Plane> {
             if (plane != null) {
                 session.delete(plane);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

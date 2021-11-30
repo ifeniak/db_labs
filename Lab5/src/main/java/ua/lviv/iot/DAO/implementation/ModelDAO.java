@@ -72,6 +72,7 @@ public class ModelDAO implements DAO<Model> {
             if (model != null) {
                 session.delete(model);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

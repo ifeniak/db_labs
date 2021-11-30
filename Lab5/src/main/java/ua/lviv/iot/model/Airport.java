@@ -26,7 +26,7 @@ public class Airport {
                 '}';
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "name")
     private String name;

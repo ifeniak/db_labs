@@ -29,12 +29,12 @@ public class AirportDAO implements DAO<Airport> {
     }
 
     @Override
-    public Airport findById(Integer id) throws SQLException {
+    public Airport findById(String name) throws SQLException {
         Airport airport = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            airport = session.get(Airport.class, id);
+            airport = session.get(Airport.class, name);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,13 +65,14 @@ public class AirportDAO implements DAO<Airport> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(String name) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Airport airport = session.get(Airport.class, id);
+            Airport airport = session.get(Airport.class, name);
             if (airport != null) {
                 session.delete(airport);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,7 +23,6 @@ public class NongovernmentalTerritories {
         this.dangerLevel = dangerLevel;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "name")
     private String name;

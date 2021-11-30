@@ -29,12 +29,12 @@ public class CityDAO implements DAO<City> {
     }
 
     @Override
-    public City findById(Integer id) throws SQLException {
+    public City findById(String name) throws SQLException {
         City city = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            city = session.get(City.class, id);
+            city = session.get(City.class, name);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,13 +65,14 @@ public class CityDAO implements DAO<City> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(String name) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            City city = session.get(City.class, id);
+            City city = session.get(City.class, name);
             if (city != null) {
                 session.delete(city);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

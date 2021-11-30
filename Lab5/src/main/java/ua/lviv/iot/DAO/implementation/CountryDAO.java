@@ -29,12 +29,12 @@ public class CountryDAO implements DAO<Country> {
     }
 
     @Override
-    public Country findById(Integer id) throws SQLException {
+    public Country findById(String name) throws SQLException {
         Country country = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            country = session.get(Country.class, id);
+            country = session.get(Country.class, name);
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,13 +65,14 @@ public class CountryDAO implements DAO<Country> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(String name) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            Country country = session.get(Country.class, id);
+            Country country = session.get(Country.class, name);
             if (country != null) {
                 session.delete(country);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

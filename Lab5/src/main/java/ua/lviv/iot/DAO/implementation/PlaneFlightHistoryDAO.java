@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import ua.lviv.iot.DAO.DAO;
 import ua.lviv.iot.HibernateUtil;
 import ua.lviv.iot.model.PlaneFlightHistory;
+import ua.lviv.iot.model.PlaneFlightHistoryPK;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,12 +30,12 @@ public class PlaneFlightHistoryDAO implements DAO<PlaneFlightHistory> {
     }
 
     @Override
-    public PlaneFlightHistory findById(Integer id) throws SQLException {
+    public PlaneFlightHistory findById(Integer firstId, Integer secondId) throws SQLException {
         PlaneFlightHistory planeFlightHistory = null;
 
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            planeFlightHistory = session.get(PlaneFlightHistory.class, id);
+            planeFlightHistory = session.get(PlaneFlightHistory.class, new PlaneFlightHistoryPK(firstId, secondId));
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,13 +66,15 @@ public class PlaneFlightHistoryDAO implements DAO<PlaneFlightHistory> {
     }
 
     @Override
-    public void delete(Integer id) throws SQLException {
+    public void delete(Integer firstId, Integer secondId) throws SQLException {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            PlaneFlightHistory planeFlightHistory = session.get(PlaneFlightHistory.class, id);
+            PlaneFlightHistory planeFlightHistory = session.get(PlaneFlightHistory.class,
+                    new PlaneFlightHistoryPK(firstId, secondId));
             if (planeFlightHistory != null) {
                 session.delete(planeFlightHistory);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class AirlineDAO implements DAO<Airline> {
     public List<Airline> findAll() throws SQLException {
         List<Airline> airlines = new ArrayList<Airline>();
 
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             airlines = session.createQuery("from Airline ").getResultList();
             session.getTransaction().commit();
@@ -32,7 +32,7 @@ public class AirlineDAO implements DAO<Airline> {
     public Airline findById(Integer id) throws SQLException {
         Airline airline = null;
 
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             airline = session.get(Airline.class, id);
             session.getTransaction().commit();
@@ -44,7 +44,7 @@ public class AirlineDAO implements DAO<Airline> {
 
     @Override
     public void create(Airline airline) throws SQLException {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.save(airline);
             session.getTransaction().commit();
@@ -55,7 +55,7 @@ public class AirlineDAO implements DAO<Airline> {
 
     @Override
     public void update(Airline airline) throws SQLException {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.update(airline);
             session.getTransaction().commit();
@@ -66,12 +66,13 @@ public class AirlineDAO implements DAO<Airline> {
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try (Session session = sessionFactory.getCurrentSession()) {
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Airline airline = session.get(Airline.class, id);
             if (airline != null) {
                 session.delete(airline);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -72,6 +72,7 @@ public class LocationDAO implements DAO<Location> {
             if (location != null) {
                 session.delete(location);
             }
+            session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
